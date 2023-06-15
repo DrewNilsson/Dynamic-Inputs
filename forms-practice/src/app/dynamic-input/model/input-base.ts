@@ -5,14 +5,52 @@ export class InputBase<T> {
   value: T | undefined;
   key: string;
   label: string;
+  placeholder: string;
   required: boolean;
   order: number;
   controlType: string;
   type: string;
+  hint: string;
   options: { key: string; value: string }[];
   validators: ValidatorFn[] | null;
   errorMsgs: { key: string; msg: string }[] | null;
+  clear: boolean;
+  disabled: boolean;
   color: ThemePalette;
 
-  constructor(options: { value?: T });
+  constructor(
+    options: {
+      value?: T;
+      key?: string;
+      label?: string;
+      placeholder?: string;
+      required?: boolean;
+      order?: number;
+      controlType?: string;
+      type?: string;
+      hint?: string;
+      options?: { key: string; value: string }[];
+      validators?: ValidatorFn[] | null;
+      errorMsgs?: { key: string; msg: string }[] | null;
+      clear?: boolean;
+      disabled?: boolean;
+      color?: ThemePalette;
+    } = {}
+  ) {
+    this.value = options.value;
+    this.key = options.key || '';
+    this.label = options.label || '';
+    this.placeholder = options.placeholder || '';
+    this.required = !!options.required;
+    this.order = options.order === undefined ? 1 : options.order;
+    this.controlType = options.controlType || '';
+    this.type = options.type || '';
+    this.hint = options.hint || '';
+    this.options = options.options || [];
+    this.validators = options.validators || [];
+    this.errorMsgs = options.errorMsgs || [];
+    this.clear = options.clear || false;
+    this.disabled = options.disabled || false;
+    this.color = options.color || 'primary';
+  }
 }

@@ -1,0 +1,178 @@
+<ng-container [ngSwitch]="field.controlType">
+  <ng-container *ngSwitchCase="'checkbox'">
+    <mat-checkbox
+      [id]="field.key"
+      [name]="field.key"
+      [formControlName]="field.key"
+      [color]="field.color"
+      [disabled]="field.disabled"
+    >
+      {{ field.label }}
+    </mat-checkbox>
+
+    <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+      {{ hasFieldError() }}</mat-error
+    >
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'radio'">
+    <mat-radio-group [id]="field.key" [formControlName]="field.key">
+      <mat-radio-button
+        *ngFor="let opt of field.options"
+        [color]="field.color"
+        [value]="opt.key"
+        [disabled]="field.disabled"
+      >
+        {{ opt.value }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+      {{ hasFieldError() }}
+    </mat-error>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'textbox'">
+    <mat-form-field [color]="field.color" [formGroup]="form">
+      <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+
+      <input
+        matInput
+        [formControlName]="field.key"
+        [id]="field.key"
+        [type]="field.type"
+        [disabled]="field.disabled"
+      />
+      <button
+        *ngIf="form.get(field.key)?.value && field.clear"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="form.get(field.key)?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'textarea'">
+    <mat-form-field [color]="field.color" [formGroup]="form">
+      <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+
+      <textarea
+        matInput
+        [formControlName]="field.key"
+        [id]="field.key"
+        [type]="field.type"
+        [placeholder]="field.placeholder"
+        [disabled]="field.disabled"
+      ></textarea>
+      <button
+        *ngIf="form.get(field.key)?.value && field.clear"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="form.get(field.key)?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'date'">
+    <mat-form-field [color]="field.color" [formGroup]="form">
+      <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        [disabled]="field.disabled"
+      />
+      <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button [color]="field.color" matDatepickerApply>
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'date-range'">
+    <mat-form-field [color]="field.color" [formGroup]="form">
+      <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+
+      <mat-date-range-input
+        [rangePicker]="rangePicker"
+        [disabled]="field.disabled"
+      >
+        <input matStartDate placeholder="Start date" />
+        <input matEndDate placeholder="End date" />
+      </mat-date-range-input>
+      <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="rangePicker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button
+            mat-raised-button
+            [color]="field.color"
+            matDateRangePickerApply
+          >
+            Apply
+          </button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'dropdown'">
+    <mat-form-field [color]="field.color" [formGroup]="form">
+      <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+
+      <mat-select
+        [id]="field.key"
+        [formControlName]="field.key"
+        [disabled]="field.disabled"
+      >
+        <mat-option *ngFor="let opt of field.options" [value]="opt.key">
+          {{ opt.value }}</mat-option
+        >
+      </mat-select>
+      <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </mat-form-field>
+  </ng-container>
+</ng-container>

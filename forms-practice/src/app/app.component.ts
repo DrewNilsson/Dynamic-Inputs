@@ -107,6 +107,14 @@ export class AppComponent {
       disabled: true
     }),
 
+    new InputDropdown({
+      key: 'state',
+      label: 'State',
+      options: this.states,
+      required: true,
+      multiple: true
+    }),
+
     new InputTextbox({
       key: 'zip',
       label: 'Zipcode',

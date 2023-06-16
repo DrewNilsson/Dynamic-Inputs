@@ -16,6 +16,7 @@ export class InputBase<T> {
   errorMsgs: { key: string; msg: string; }[] | null;
   clear: boolean;
   disabled: boolean;
+  multiple: boolean;
   color: ThemePalette;
 
   constructor(
@@ -34,6 +35,7 @@ export class InputBase<T> {
       errorMsgs?: { key: string; msg: string }[] | null;
       clear?: boolean;
       disabled?: boolean;
+      multiple?: boolean;
       color?: ThemePalette;
     } = {}
   ) {
@@ -51,6 +53,7 @@ export class InputBase<T> {
     this.errorMsgs = options.errorMsgs || [];
     this.clear = options.clear || false;
     this.disabled = options.disabled || false;
+    this.multiple = options.multiple || false;
     this.color = options.color || 'primary';
   }
 }

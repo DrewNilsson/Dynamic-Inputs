@@ -186,6 +186,7 @@
         [id]="field.key"
         [formControlName]="field.key"
         [disabled]="field.disabled"
+        [multiple]="field.multiple"
         *ngIf="!field.disabled; else elseSelect"
       >
         <mat-option
@@ -197,7 +198,11 @@
         >
       </mat-select>
       <ng-template #elseSelect>
-        <mat-select [id]="field.key" [disabled]="field.disabled">
+        <mat-select
+          [id]="field.key"
+          [disabled]="field.disabled"
+          [multiple]="field.multiple"
+        >
           <mat-option
             *ngFor="let opt of field.options"
             [disabled]="opt.disabled"

@@ -2,21 +2,49 @@ import { ValidatorFn } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 
 export class InputBase<T> {
+  // Sets value of input on init
   value: T | undefined;
+
+  // Used to Id input
   key: string;
+
+  // Add label to input
   label: string;
+
+  // Add placeholder to input
   placeholder: string;
+
+  // Adds Validator.required to input
   required: boolean;
-  order: number;
+
+  // Specifies which input class to be used
   controlType: string;
+
+  // Specifies which input type to be used
   type: string;
+
+  // Adds Material hint to input
   hint: string;
-  options: { key: string; value: string; disabled?: boolean; }[];
+
+  // Array of options for dropdowns and radio groups
+  options: { key: string; value: string; disabled?: boolean }[];
+
+  // Add array of validations to input field
   validators: ValidatorFn[] | null;
-  errorMsgs: { key: string; msg: string; }[] | null;
+
+  // Add error messages corresponding to validator key
+  errorMsgs: { key: string; msg: string }[] | null;
+
+  // Adds a clear button to end of textbox or textarea
   clear: boolean;
+
+  // Puts Input into disabled state
   disabled: boolean;
+
+  // Dropdowns can have multiple options selected
   multiple: boolean;
+
+  // Change color of input
   color: ThemePalette;
 
   constructor(
@@ -26,11 +54,10 @@ export class InputBase<T> {
       label?: string;
       placeholder?: string;
       required?: boolean;
-      order?: number;
       controlType?: string;
       type?: string;
       hint?: string;
-      options?: { key: string; value: string; disabled?: boolean; }[];
+      options?: { key: string; value: string; disabled?: boolean }[];
       validators?: ValidatorFn[] | null;
       errorMsgs?: { key: string; msg: string }[] | null;
       clear?: boolean;
@@ -44,7 +71,6 @@ export class InputBase<T> {
     this.label = options.label || '';
     this.placeholder = options.placeholder || '';
     this.required = !!options.required;
-    this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.type = options.type || '';
     this.hint = options.hint || '';

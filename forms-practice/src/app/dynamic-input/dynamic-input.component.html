@@ -1,4 +1,5 @@
 <ng-container [ngSwitch]="field.controlType">
+  <!-- Checkbox Input -->
   <ng-container *ngSwitchCase="'checkbox'">
     <mat-checkbox
       [id]="field.key"
@@ -15,6 +16,7 @@
     >
   </ng-container>
 
+  <!-- Radio Group Input -->
   <ng-container *ngSwitchCase="'radio'">
     <mat-radio-group
       [disabled]="field.disabled"
@@ -36,6 +38,7 @@
     </mat-error>
   </ng-container>
 
+  <!-- Textbox Input -->
   <ng-container *ngSwitchCase="'textbox'">
     <mat-form-field [color]="field.color" [formGroup]="form">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
@@ -48,6 +51,7 @@
         [placeholder]="field.placeholder"
         *ngIf="!field.disabled; else elseInput"
       />
+      <!-- Disabled Textbox -->
       <ng-template #elseInput>
         <input
           matInput
@@ -57,6 +61,8 @@
           [placeholder]="field.placeholder"
         />
       </ng-template>
+
+      <!-- Clear Button -->
       <button
         *ngIf="form.get(field.key)?.value && field.clear"
         matSuffix
@@ -74,6 +80,7 @@
     </mat-form-field>
   </ng-container>
 
+  <!-- Textarea Input -->
   <ng-container *ngSwitchCase="'textarea'">
     <mat-form-field [color]="field.color" [formGroup]="form">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
@@ -86,6 +93,8 @@
         [placeholder]="field.placeholder"
         *ngIf="!field.disabled; else elseTextarea"
       ></textarea>
+
+      <!-- Disabled Textarea -->
       <ng-template #elseTextarea>
         <textarea
           matInput
@@ -95,6 +104,8 @@
           [placeholder]="field.placeholder"
         ></textarea>
       </ng-template>
+
+      <!-- Clear Button -->
       <button
         *ngIf="form.get(field.key)?.value && field.clear"
         matSuffix
@@ -112,6 +123,7 @@
     </mat-form-field>
   </ng-container>
 
+  <!-- Date Picker Input -->
   <ng-container *ngSwitchCase="'date'">
     <mat-form-field [color]="field.color" [formGroup]="form">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
@@ -142,6 +154,7 @@
     </mat-form-field>
   </ng-container>
 
+  <!-- Date Picker Range Input -->
   <ng-container *ngSwitchCase="'date-range'">
     <mat-form-field [color]="field.color" [formGroup]="form">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
@@ -178,6 +191,7 @@
     </mat-form-field>
   </ng-container>
 
+  <!-- Dropdown Input -->
   <ng-container *ngSwitchCase="'dropdown'">
     <mat-form-field [color]="field.color" [formGroup]="form">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
@@ -185,7 +199,6 @@
       <mat-select
         [id]="field.key"
         [formControlName]="field.key"
-        [disabled]="field.disabled"
         [multiple]="field.multiple"
         *ngIf="!field.disabled; else elseSelect"
       >
@@ -197,6 +210,8 @@
           {{ opt.value }}</mat-option
         >
       </mat-select>
+
+      <!-- Disabled Dropdown -->
       <ng-template #elseSelect>
         <mat-select
           [id]="field.key"
@@ -212,6 +227,7 @@
           >
         </mat-select>
       </ng-template>
+
       <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
 
       <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">

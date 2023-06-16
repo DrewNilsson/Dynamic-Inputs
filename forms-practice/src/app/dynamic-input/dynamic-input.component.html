@@ -1,41 +1,44 @@
 <ng-container [ngSwitch]="field.controlType">
   <!-- Checkbox Input -->
   <ng-container *ngSwitchCase="'checkbox'">
-    <mat-checkbox
-      [id]="field.key"
-      [name]="field.key"
-      [formControlName]="field.key"
-      [color]="field.color"
-      [disabled]="field.disabled"
-    >
-      {{ field.label }}
-    </mat-checkbox>
+    <section [formGroup]="form">
+      <mat-checkbox
+        [id]="field.key"
+        [name]="field.key"
+        [formControlName]="field.key"
+        [color]="field.color"
+      >
+        {{ field.label }}
+      </mat-checkbox>
 
-    <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
-      {{ hasFieldError() }}</mat-error
-    >
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}</mat-error
+      >
+    </section>
   </ng-container>
 
   <!-- Radio Group Input -->
   <ng-container *ngSwitchCase="'radio'">
-    <mat-radio-group
-      [disabled]="field.disabled"
-      [id]="field.key"
-      [formControlName]="field.key"
-    >
-      <mat-radio-button
-        *ngFor="let opt of field.options"
-        [color]="field.color"
-        [value]="opt.key"
-        [disabled]="opt.disabled"
+    <section [formGroup]="form">
+      <mat-radio-group
+        [disabled]="field.disabled"
+        [id]="field.key"
+        [formControlName]="field.key"
       >
-        {{ opt.value }}
-      </mat-radio-button>
-    </mat-radio-group>
+        <mat-radio-button
+          *ngFor="let opt of field.options"
+          [color]="field.color"
+          [value]="opt.key"
+          [disabled]="opt.disabled"
+        >
+          {{ opt.value }}
+        </mat-radio-button>
+      </mat-radio-group>
 
-    <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
-      {{ hasFieldError() }}
-    </mat-error>
+      <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">
+        {{ hasFieldError() }}
+      </mat-error>
+    </section>
   </ng-container>
 
   <!-- Textbox Input -->
@@ -200,6 +203,7 @@
         [id]="field.key"
         [formControlName]="field.key"
         [multiple]="field.multiple"
+        (valueChange)="changeValue($event, field.key)"
         *ngIf="!field.disabled; else elseSelect"
       >
         <mat-option

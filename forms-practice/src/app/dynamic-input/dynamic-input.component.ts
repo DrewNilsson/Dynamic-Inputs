@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputBase } from './model/input-base';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 
@@ -13,6 +13,13 @@ export class DynamicInputComponent {
 
   @Input()
   form!: FormGroup;
+
+  @Output()
+  newItemEvent = new EventEmitter<any>();
+
+  changeValue(value: any, key: any) {
+    this.newItemEvent.emit({ key: key, value: value });
+  }
 
   hasFieldError(): string {
     let error = '';

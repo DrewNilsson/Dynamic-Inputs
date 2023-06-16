@@ -17,9 +17,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { IncidentReportFormComponent } from './incident-report-form/incident-report-form.component';
 
 @NgModule({
-  declarations: [AppComponent, DynamicInputComponent],
+  declarations: [AppComponent, DynamicInputComponent, IncidentReportFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

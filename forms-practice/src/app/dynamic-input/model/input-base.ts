@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 
@@ -27,7 +28,7 @@ export class InputBase<T> {
   hint: string;
 
   // Array of options for dropdowns and radio groups
-  options: { key: string; value: string; disabled?: boolean }[];
+  options: Options[];
 
   // Add array of validations to input field
   validators: ValidatorFn[] | null;
@@ -57,7 +58,7 @@ export class InputBase<T> {
       controlType?: string;
       type?: string;
       hint?: string;
-      options?: { key: string; value: string; disabled?: boolean }[];
+      options?: Options[];
       validators?: ValidatorFn[] | null;
       errorMsgs?: { key: string; msg: string }[] | null;
       clear?: boolean;
@@ -82,4 +83,10 @@ export class InputBase<T> {
     this.multiple = options.multiple || false;
     this.color = options.color || 'primary';
   }
+}
+
+export interface Options {
+  key: string;
+  value: string;
+  disabled?: boolean;
 }

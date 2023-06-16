@@ -1,0 +1,15 @@
+<form [formGroup]="form" class="incident-report-form">
+  <section>First Responder Info</section>
+  <section class="first-responder">
+    <section *ngFor="let field of formFields.slice(0, 2)">
+      <app-dynamic-input
+        (newItemEvent)="valueChanged($event)"
+        [field]="field"
+        [form]="form"
+      ></app-dynamic-input>
+    </section>
+  </section>
+  <section>
+    <button mat-raised-button color="primary">Submit</button>
+  </section>
+</form>

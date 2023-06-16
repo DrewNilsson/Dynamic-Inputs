@@ -16,12 +16,16 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="'radio'">
-    <mat-radio-group [id]="field.key" [formControlName]="field.key">
+    <mat-radio-group
+      [disabled]="field.disabled"
+      [id]="field.key"
+      [formControlName]="field.key"
+    >
       <mat-radio-button
         *ngFor="let opt of field.options"
         [color]="field.color"
         [value]="opt.key"
-        [disabled]="field.disabled"
+        [disabled]="opt.disabled"
       >
         {{ opt.value }}
       </mat-radio-button>
@@ -42,8 +46,17 @@
         [id]="field.key"
         [type]="field.type"
         [placeholder]="field.placeholder"
-        [disabled]="field.disabled"
+        *ngIf="!field.disabled; else elseInput"
       />
+      <ng-template #elseInput>
+        <input
+          matInput
+          disabled
+          [id]="field.key"
+          [type]="field.type"
+          [placeholder]="field.placeholder"
+        />
+      </ng-template>
       <button
         *ngIf="form.get(field.key)?.value && field.clear"
         matSuffix
@@ -71,8 +84,17 @@
         [id]="field.key"
         [type]="field.type"
         [placeholder]="field.placeholder"
-        [disabled]="field.disabled"
+        *ngIf="!field.disabled; else elseTextarea"
       ></textarea>
+      <ng-template #elseTextarea>
+        <textarea
+          matInput
+          disabled
+          [id]="field.key"
+          [type]="field.type"
+          [placeholder]="field.placeholder"
+        ></textarea>
+      </ng-template>
       <button
         *ngIf="form.get(field.key)?.value && field.clear"
         matSuffix
@@ -164,11 +186,27 @@
         [id]="field.key"
         [formControlName]="field.key"
         [disabled]="field.disabled"
+        *ngIf="!field.disabled; else elseSelect"
       >
-        <mat-option *ngFor="let opt of field.options" [value]="opt.key">
+        <mat-option
+          *ngFor="let opt of field.options"
+          [disabled]="opt.disabled"
+          [value]="opt.key"
+        >
           {{ opt.value }}</mat-option
         >
       </mat-select>
+      <ng-template #elseSelect>
+        <mat-select [id]="field.key" [disabled]="field.disabled">
+          <mat-option
+            *ngFor="let opt of field.options"
+            [disabled]="opt.disabled"
+            [value]="opt.key"
+          >
+            {{ opt.value }}</mat-option
+          >
+        </mat-select>
+      </ng-template>
       <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
 
       <mat-error class="errorMessage" *ngIf="hasFieldError() != ''">

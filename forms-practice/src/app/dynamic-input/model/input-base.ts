@@ -11,9 +11,9 @@ export class InputBase<T> {
   controlType: string;
   type: string;
   hint: string;
-  options: { key: string; value: string }[];
+  options: { key: string; value: string; disabled?: boolean; }[];
   validators: ValidatorFn[] | null;
-  errorMsgs: { key: string; msg: string }[] | null;
+  errorMsgs: { key: string; msg: string; }[] | null;
   clear: boolean;
   disabled: boolean;
   color: ThemePalette;
@@ -29,7 +29,7 @@ export class InputBase<T> {
       controlType?: string;
       type?: string;
       hint?: string;
-      options?: { key: string; value: string }[];
+      options?: { key: string; value: string; disabled?: boolean; }[];
       validators?: ValidatorFn[] | null;
       errorMsgs?: { key: string; msg: string }[] | null;
       clear?: boolean;

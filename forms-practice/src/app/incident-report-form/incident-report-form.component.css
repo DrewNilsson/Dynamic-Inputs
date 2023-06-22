@@ -1,7 +1,22 @@
 .incident-report-form {
+    display: flex;
+    flex-direction: column;
     
 }
 
-.first-responder {
+.first-responder-info {
     display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.student-info {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.student-name {
+    display: flex;
+    justify-content: space-between;
 }

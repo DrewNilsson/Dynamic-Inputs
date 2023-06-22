@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputBase, Options } from '../dynamic-input/model/input-base';
 import { InputTextbox } from '../dynamic-input/model/input-textbox';
@@ -14,39 +14,81 @@ import { MatButton } from '@angular/material/button';
   styleUrls: ['./incident-report-form.component.css'],
 })
 export class IncidentReportFormComponent {
+  @Output()
+  newValueEvent = new EventEmitter<any>();
+
   form!: FormGroup;
 
   private formFieldCountyValueChanges$!: Observable<any>;
 
   counties = [
-    { key: '1', value: 'San Joaquin County' },
-    { key: '2', value: 'Stanislaus County' },
-    { key: '3', value: 'Stanislaus County' },
+    { key: 'San Joaquin County', value: 'San Joaquin County' },
+    { key: 'Stanislaus County', value: 'Stanislaus County' },
   ];
   districts = [
-    { key: '1', countyKey: '1', value: 'Stockton Unified' },
-    { key: '2', countyKey: '1', value: 'Ripon Unified' },
-    { key: '3', countyKey: '2', value: 'Modesto Unified' },
+    {
+      key: 'Stockton Unified',
+      countyKey: 'San Joaquin County',
+      value: 'Stockton Unified',
+    },
+    {
+      key: 'Ripon Unified',
+      countyKey: 'San Joaquin County',
+      value: 'Ripon Unified',
+    },
+    {
+      key: 'Modesto Unified',
+      countyKey: 'Stanislaus County',
+      value: 'Modesto Unified',
+    },
   ];
   schools = [
-    { key: '1', districtKey: '1', value: 'John Adams Elementary' },
-    { key: '2', districtKey: '1', value: 'Cesar Chavez High' },
-    { key: '3', districtKey: '2', value: 'Ripon High' },
-    { key: '4', districtKey: '2', value: 'Weston Elementary' },
-    { key: '5', districtKey: '2', value: 'Ripon Elementary' },
-    { key: '6', districtKey: '3', value: 'Modesto High' },
-    { key: '7', districtKey: '3', value: 'Bret Hart Elementary' },
+    {
+      key: 'John Adams Elementary',
+      districtKey: 'Stockton Unified',
+      value: 'John Adams Elementary',
+    },
+    {
+      key: 'Cesar Chavez High',
+      districtKey: 'Stockton Unified',
+      value: 'Cesar Chavez High',
+    },
+    { key: 'Ripon High', districtKey: 'Ripon Unified', value: 'Ripon High' },
+    {
+      key: 'Weston Elementary',
+      districtKey: 'Ripon Unified',
+      value: 'Weston Elementary',
+    },
+    {
+      key: 'Ripon Elementary',
+      districtKey: 'Ripon Unified',
+      value: 'Ripon Elementary',
+    },
+    {
+      key: 'Modesto High',
+      districtKey: 'Modesto Unified',
+      value: 'Modesto High',
+    },
+    {
+      key: 'Bret Hart Elementary',
+      districtKey: 'Modesto Unified',
+      value: 'Bret Hart Elementary',
+    },
   ];
   grades = [
-    { key: 'K', value: 'Kindergarden' },
-    { key: '1', value: 'First Grade' },
-    { key: '2', value: 'Second Grade' },
-    { key: '3', value: 'Third Grade' },
-    { key: '4', value: 'Fourth Grade' },
-    { key: '5', value: 'Fifth Grade' },
-    { key: '6', value: 'Sixth Grade' },
-    { key: '7', value: 'Seventh Grade' },
-    { key: '8', value: 'Eighth Grade' },
+    { key: 'Kn', value: 'Kindergarden' },
+    { key: '1st', value: 'First Grade' },
+    { key: '2nd', value: 'Second Grade' },
+    { key: '3rd', value: 'Third Grade' },
+    { key: '4th', value: 'Fourth Grade' },
+    { key: '5th', value: 'Fifth Grade' },
+    { key: '6th', value: 'Sixth Grade' },
+    { key: '7th', value: 'Seventh Grade' },
+    { key: '8th', value: 'Eighth Grade' },
+    { key: '9th', value: 'Ninth Grade' },
+    { key: '10th', value: 'Tenth Grade' },
+    { key: '11th', value: 'Eleventh Grade' },
+    { key: '12th', value: 'Twelfth Grade' },
   ];
 
   countyOptions: Options[] = this.counties;
@@ -63,7 +105,7 @@ export class IncidentReportFormComponent {
 
     new InputDropdown({
       key: 'department',
-      label: 'Select or search for Department',
+      label: 'Department',
       options: [
         { key: 'police', value: 'Police' },
         { key: 'paramedics', value: 'Paramedics' },
@@ -147,6 +189,15 @@ export class IncidentReportFormComponent {
         })
       );
     this.formFieldCountyValueChanges$.subscribe();
+  }
+
+  onSubmit(): void {
+    this.form.markAllAsTouched();
+
+    if (this.form.invalid) return;
+    alert('Successfully Submitted');
+    this.newValueEvent.emit(this.form.value);
+    this.form.reset();
   }
 
   valueChanged(object: any) {

@@ -1,6 +1,6 @@
-<form [formGroup]="form" class="incident-report-form">
+<form [formGroup]="form" class="md:container md:mx-auto">
   <section>First Responder Info</section>
-  <section class="first-responder">
+  <section class="first-responder-info">
     <section *ngFor="let field of formFields.slice(0, 2)">
       <app-dynamic-input
         (newItemEvent)="valueChanged($event)"
@@ -9,7 +9,29 @@
       ></app-dynamic-input>
     </section>
   </section>
-  <section>
-    <button mat-raised-button color="primary">Submit</button>
+  <section class="student-info">
+    <section>Student Info</section>
+    <section class="student-name">
+      <section *ngFor="let field of formFields.slice(2, 4)">
+        <app-dynamic-input
+          (newItemEvent)="valueChanged($event)"
+          [field]="field"
+          [form]="form"
+        ></app-dynamic-input>
+      </section>
+    </section>
+    <section *ngFor="let field of formFields.slice(4)">
+      <app-dynamic-input
+        style="display: flex; flex-direction: column"
+        (newItemEvent)="valueChanged($event)"
+        [field]="field"
+        [form]="form"
+      ></app-dynamic-input>
+    </section>
+  </section>
+  <section style="display: flex; justify-content: center">
+    <button mat-raised-button color="primary" (click)="onSubmit()">
+      Submit
+    </button>
   </section>
 </form>
